@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kalkulator Sederhana</title>
+</head>
+<body>
+  <h2>Kalkulator Sederhana</h2>
+  <input id="angka1" type="number" placeholder="Angka pertama">
+  <input id="angka2" type="number" placeholder="Angka kedua"><br><br>
+  <button onclick="hitung('+')">+</button>
+  <button onclick="hitung('-')">-</button>
+  <button onclick="hitung('*')">*</button>
+  <button onclick="hitung('/')">/</button>
+  <p>Hasil: <span id="hasil">0</span></p>
+
+  <script>
+    function hitung(operator) {
+      const a = parseFloat(document.getElementById("angka1").value);
+      const b = parseFloat(document.getElementById("angka2").value);
+      let hasil = 0;
+      switch(operator) {
+        case '+': hasil = a + b; break;
+        case '-': hasil = a - b; break;
+        case '*': hasil = a * b; break;
+        case '/': hasil = b !== 0 ? a / b : "Tak hingga"; break;
+      }
+      document.getElementById("hasil").innerText = hasil;
+    }
+  </script>
+</body>
+</html>

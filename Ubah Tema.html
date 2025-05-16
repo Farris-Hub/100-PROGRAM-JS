@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mode Gelap / Terang</title>
+  <style>
+    body {
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark {
+      background-color: #222;
+      color: #eee;
+    }
+    .light {
+      background-color: #fff;
+      color: #000;
+    }
+  </style>
+</head>
+<body class="light">
+  <h2>Ganti Tema</h2>
+  <button onclick="toggleTema()">Ubah Tema</button>
+
+  <script>
+    function toggleTema() {
+      const body = document.body;
+      const isDark = body.classList.contains("dark");
+      body.className = isDark ? "light" : "dark";
+      localStorage.setItem("tema", body.className);
+    }
+
+    // Muat tema dari localStorage
+    const savedTema = localStorage.getItem("tema");
+    if (savedTema) {
+      document.body.className = savedTema;
+    }
+  </script>
+</body>
+</html>

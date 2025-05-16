@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Membuat List</title>
+</head>
+<body>
+  <h2>Membuat List</h2>
+  <input id="tugasInput" placeholder="Tulis tugas...">
+  <button onclick="tambahTugas()">Tambah</button>
+  <ul id="daftarTugas"></ul>
+
+  <script>
+    function tambahTugas() {
+      const input = document.getElementById("tugasInput");
+      if (input.value.trim() === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = input.value;
+      li.onclick = () => li.remove(); // klik untuk hapus
+      document.getElementById("daftarTugas").appendChild(li);
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
