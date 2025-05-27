@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Suit</title>
+</head>
+<body>
+    <button onclick="play('batu')">Batu</button>
+<button onclick="play('gunting')">Gunting</button>
+<button onclick="play('kertas')">Kertas</button>
+<p id="result"></p>
+
+<script>
+function play(user) {
+  const choices = ["batu", "gunting", "kertas"];
+  const comp = choices[Math.floor(Math.random() * 3)];
+  let result = "";
+
+  if (user === comp) result = "Seri!";
+  else if (
+    (user === "batu" && comp === "gunting") ||
+    (user === "gunting" && comp === "kertas") ||
+    (user === "kertas" && comp === "batu")
+  ) result = "Menang!";
+  else result = "Kalah!";
+
+  document.getElementById("result").innerText = `Kamu pilih ${user}, komputer pilih ${comp}. ${result}`;
+}
+</script>
+
+</body>
+</html>

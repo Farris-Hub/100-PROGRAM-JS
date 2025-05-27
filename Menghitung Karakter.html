@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menghitung Karakter</title>
+</head>
+<body>
+    <textarea id="input" oninput="countChar()"></textarea>
+<p>Jumlah karakter: <span id="charCount">0</span></p>
+
+<script>
+function countChar() {
+  const count = document.getElementById("input").value.length;
+  document.getElementById("charCount").innerText = count;
+}
+</script>
+</body>
+</html>

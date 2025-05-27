@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konverter Suhu</title>
+</head>
+<body>
+    <input id="cel" placeholder="Celcius" oninput="convertToF()">
+<p>Fahrenheit: <span id="fahr"></span></p>
+
+<script>
+function convertToF() {
+  const cel = parseFloat(document.getElementById("cel").value);
+  if (!isNaN(cel)) {
+    document.getElementById("fahr").innerText = (cel * 9/5 + 32).toFixed(2);
+  } else {
+    document.getElementById("fahr").innerText = "";
+  }
+}
+</script>
+</body>
+</html>
