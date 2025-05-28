@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Drag & Drop Gambar</title></head>
+<body>
+  <div id="dropZone" ondrop="dropHandler(event)" ondragover="event.preventDefault()" style="width:300px;height:200px;border:2px dashed #ccc;">Drop gambar di sini</div>
+  <img id="preview" style="max-width:100%;margin-top:10px;" />
+  <script>
+    function dropHandler(ev) {
+      ev.preventDefault();
+      const file = ev.dataTransfer.files[0];
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('preview').src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>

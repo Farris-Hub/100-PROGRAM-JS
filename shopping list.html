@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>Checklist Belanja</title></head>
+<body>
+  <input type="text" id="itemInput" placeholder="Tambah item">
+  <button onclick="addItem()">Tambah</button>
+  <ul id="shoppingList"></ul>
+  <script>
+    function addItem() {
+      const item = document.getElementById('itemInput').value;
+      if (item) {
+        const li = document.createElement('li');
+        li.textContent = item;
+        li.onclick = () => li.style.textDecoration = li.style.textDecoration === 'line-through' ? '' : 'line-through';
+        document.getElementById('shoppingList').appendChild(li);
+        document.getElementById('itemInput').value = '';
+      }
+    }
+  </script>
+</body>
+</html>

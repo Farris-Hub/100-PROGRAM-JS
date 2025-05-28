@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Pembalik Teks</title></head>
+<body>
+  <input type="text" id="inputText" placeholder="Masukkan teks">
+  <button onclick="reverseText()">Balikkan</button>
+  <div id="reversedText"></div>
+  <script>
+    function reverseText() {
+      const text = document.getElementById('inputText').value;
+      const reversed = text.split('').reverse().join('');
+      document.getElementById('reversedText').innerText = reversed;
+    }
+  </script>
+</body>
+</html>

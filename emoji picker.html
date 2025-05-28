@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Emoji Picker</title></head>
+<body>
+  <select id="emojiSelect" onchange="pickEmoji()">
+    <option value="😊">😊</option>
+    <option value="😂">😂</option>
+    <option value="🔥">🔥</option>
+    <option value="👍">👍</option>
+  </select>
+  <input type="text" id="emojiInput" placeholder="Hasil emoji">
+  <script>
+    function pickEmoji() {
+      const emoji = document.getElementById('emojiSelect').value;
+      document.getElementById('emojiInput').value += emoji;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Keyboard Event Tracker</title></head>
+<body>
+  <h3>Tekan tombol di keyboard:</h3>
+  <div id="keyResult" style="font-size:24px;font-weight:bold;"></div>
+  <script>
+    document.addEventListener('keydown', function(event) {
+      document.getElementById('keyResult').innerText = `Kamu menekan: ${event.key}`;
+    });
+  </script>
+</body>
+</html>
