@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Habit Tracker Sederhana</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f7f7f7;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: center;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+    }
+    th {
+      background-color: #eaeaea;
+    }
+    td:hover {
+      background-color: #eef;
+      cursor: pointer;
+    }
+    .checked {
+      background-color: #a2d5ab !important;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Habit Tracker Mingguan</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Kebiasaan</th>
+        <th>Senin</th>
+        <th>Selasa</th>
+        <th>Rabu</th>
+        <th>Kamis</th>
+        <th>Jumat</th>
+        <th>Sabtu</th>
+        <th>Minggu</th>
+      </tr>
+    </thead>
+    <tbody id="habitTable">
+      <tr>
+        <td>Olahraga</td>
+        <td data-id="0-0"></td>
+        <td data-id="0-1"></td>
+        <td data-id="0-2"></td>
+        <td data-id="0-3"></td>
+        <td data-id="0-4"></td>
+        <td data-id="0-5"></td>
+        <td data-id="0-6"></td>
+      </tr>
+      <tr>
+        <td>Minum 2L Air</td>
+        <td data-id="1-0"></td>
+        <td data-id="1-1"></td>
+        <td data-id="1-2"></td>
+        <td data-id="1-3"></td>
+        <td data-id="1-4"></td>
+        <td data-id="1-5"></td>
+        <td data-id="1-6"></td>
+      </tr>
+      <tr>
+        <td>Baca Buku</td>
+        <td data-id="2-0"></td>
+        <td data-id="2-1"></td>
+        <td data-id="2-2"></td>
+        <td data-id="2-3"></td>
+        <td data-id="2-4"></td>
+        <td data-id="2-5"></td>
+        <td data-id="2-6"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const table = document.getElementById("habitTable");
+    let habitData = JSON.parse(localStorage.getItem("habitData")) || {};
+
+    // Load data
+    for (const id in habitData) {
+      const cell = document.querySelector(`[data-id="${id}"]`);
+      if (cell && habitData[id]) {
+        cell.classList.add("checked");
+      }
+    }
+
+    // Toggle and save data
+    table.addEventListener("click", function (e) {
+      const cell = e.target;
+      const id = cell.dataset.id;
+      if (id) {
+        cell.classList.toggle("checked");
+        habitData[id] = cell.classList.contains("checked");
+        localStorage.setItem("habitData", JSON.stringify(habitData));
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jam Dunia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 25px;
+    }
+    .city-clock {
+      background: #f0f0f0;
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .city-name {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .time {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 24px;
+      color: #333;
+      min-width: 120px;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Jam Dunia</h2>
+
+  <div class="city-clock">
+    <div class="city-name">Jakarta (WIB)</div>
+    <div class="time" id="jakartaTime"></div>
+  </div>
+  <div class="city-clock">
+    <div class="city-name">London (GMT)</div>
+    <div class="time" id="londonTime"></div>
+  </div>
+  <div class="city-clock">
+    <div class="city-name">New York (EST)</div>
+    <div class="time" id="newyorkTime"></div>
+  </div>
+  <div class="city-clock">
+    <div class="city-name">Tokyo (JST)</div>
+    <div class="time" id="tokyoTime"></div>
+  </div>
+
+  <script>
+    function updateClocks() {
+      const now = new Date();
+
+      function formatTime(date) {
+        return date.toLocaleTimeString('id-ID', { hour12: false });
+      }
+
+      const jakartaTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+      document.getElementById('jakartaTime').textContent = formatTime(jakartaTime);
+
+      const londonTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/London" }));
+      document.getElementById('londonTime').textContent = formatTime(londonTime);
+
+      const newyorkTime = new Date(now.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      document.getElementById('newyorkTime').textContent = formatTime(newyorkTime);
+
+      const tokyoTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+      document.getElementById('tokyoTime').textContent = formatTime(tokyoTime);
+    }
+
+    setInterval(updateClocks, 1000);
+    updateClocks();
+  </script>
+
+</body>
+</html>

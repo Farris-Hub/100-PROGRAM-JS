@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Form Registrasi</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      padding: 30px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .success {
+      color: green;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Form Registrasi</h2>
+    <div class="error" id="errorMsg"></div>
+    <form id="registerForm">
+      <input type="text" id="name" placeholder="Nama Lengkap" required />
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <input type="password" id="confirmPassword" placeholder="Konfirmasi Password" required />
+      <button type="submit">Daftar</button>
+    </form>
+    <div class="success" id="successMsg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("registerForm");
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+
+      if (!name || !email || !password || !confirmPassword) {
+        errorMsg.textContent = "Semua field harus diisi.";
+        return;
+      }
+
+      if (password.length < 6) {
+        errorMsg.textContent = "Password minimal 6 karakter.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorMsg.textContent = "Password dan konfirmasi tidak cocok.";
+        return;
+      }
+
+      successMsg.textContent = "Registrasi berhasil!";
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alarm Sederhana dengan Stop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input[type="time"] {
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 160px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      margin-left: 10px;
+      cursor: pointer;
+      border: none;
+      background-color: #28a745;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    button:active {
+      background-color: #1e7e34;
+    }
+    #stopAlarmBtn {
+      background-color: #dc3545;
+    }
+    #stopAlarmBtn:active {
+      background-color: #a71d2a;
+    }
+    #status {
+      margin-top: 25px;
+      font-size: 20px;
+      color: #555;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Alarm Sederhana dengan Stop</h2>
+
+  <input type="time" id="alarmTime" />
+  <button id="setAlarmBtn">Set Alarm</button>
+  <button id="stopAlarmBtn" disabled>Stop Alarm</button>
+
+  <div id="status">Belum ada alarm disetel</div>
+
+  <audio id="alarmSound" src="https://actions.google.com/sounds/v1/alarms/alarm_clock.ogg" preload="auto"></audio>
+
+  <script>
+    const alarmTimeInput = document.getElementById('alarmTime');
+    const setAlarmBtn = document.getElementById('setAlarmBtn');
+    const stopAlarmBtn = document.getElementById('stopAlarmBtn');
+    const status = document.getElementById('status');
+    const alarmSound = document.getElementById('alarmSound');
+    let alarmTimeout;
+
+    setAlarmBtn.addEventListener('click', () => {
+      if (alarmTimeout) {
+        clearTimeout(alarmTimeout);
+        alarmSound.pause();
+        alarmSound.currentTime = 0;
+      }
+
+      const alarmTime = alarmTimeInput.value;
+      if (!alarmTime) {
+        alert('Silakan pilih waktu alarm!');
+        return;
+      }
+
+      const now = new Date();
+      const alarmDateTime = new Date();
+
+      const [hours, minutes] = alarmTime.split(':');
+      alarmDateTime.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
+
+      if (alarmDateTime <= now) {
+        alarmDateTime.setDate(alarmDateTime.getDate() + 1);
+      }
+
+      const timeToAlarm = alarmDateTime - now;
+
+      status.textContent = `Alarm disetel pada ${alarmTime}`;
+      stopAlarmBtn.disabled = true;
+
+      alarmTimeout = setTimeout(() => {
+        alarmSound.play();
+        alert('⏰ Alarm berbunyi!');
+        status.textContent = 'Alarm berbunyi! Tekan Stop Alarm untuk hentikan.';
+        stopAlarmBtn.disabled = false;
+      }, timeToAlarm);
+    });
+
+    stopAlarmBtn.addEventListener('click', () => {
+      alarmSound.pause();
+      alarmSound.currentTime = 0;
+      clearTimeout(alarmTimeout);
+      status.textContent = 'Alarm dihentikan. Belum ada alarm disetel.';
+      stopAlarmBtn.disabled = true;
+    });
+  </script>
+
+</body>
+</html>

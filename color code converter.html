@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Code Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      padding: 30px;
+      max-width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #hexBtn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    #rgbBtn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .color-preview {
+      margin-top: 20px;
+      height: 80px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Color Code Converter</h2>
+
+  <input type="text" id="inputColor" placeholder="Masukkan HEX (#RRGGBB) atau RGB (rgb(255,255,255))" />
+
+  <div>
+    <button id="hexBtn">Convert ke HEX</button>
+    <button id="rgbBtn">Convert ke RGB</button>
+  </div>
+
+  <div class="result" id="result"></div>
+  <div class="color-preview" id="colorPreview"></div>
+
+  <script>
+    const input = document.getElementById("inputColor");
+    const result = document.getElementById("result");
+    const preview = document.getElementById("colorPreview");
+
+    function rgbToHex(r, g, b) {
+      return "#" + [r, g, b].map(x => {
+        const hex = x.toString(16);
+        return hex.length === 1 ? "0" + hex : hex;
+      }).join('');
+    }
+
+    function hexToRgb(hex) {
+      // Remove #
+      hex = hex.replace(/^#/, "");
+      if (hex.length === 3) {
+        // convert shorthand hex (e.g. #03F) to full form (#0033FF)
+        hex = hex.split('').map(c => c + c).join('');
+      }
+      const bigint = parseInt(hex, 16);
+      if (isNaN(bigint)) return null;
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return { r, g, b };
+    }
+
+    document.getElementById("hexBtn").addEventListener("click", () => {
+      const rgbInput = input.value.trim();
+
+      // Extract rgb values from input like "rgb(255, 255, 255)"
+      const rgbRegex = /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/i;
+      const match = rgbInput.match(rgbRegex);
+      if (!match) {
+        result.textContent = "Format RGB salah. Contoh: rgb(255,255,255)";
+        preview.style.backgroundColor = "transparent";
+        return;
+      }
+      let r = parseInt(match[1]), g = parseInt(match[2]), b = parseInt(match[3]);
+      if ([r,g,b].some(x => x < 0 || x > 255)) {
+        result.textContent = "Nilai RGB harus antara 0 sampai 255.";
+        preview.style.backgroundColor = "transparent";
+        return;
+      }
+      const hex = rgbToHex(r, g, b);
+      result.textContent = `HEX: ${hex}`;
+      preview.style.backgroundColor = hex;
+    });
+
+    document.getElementById("rgbBtn").addEventListener("click", () => {
+      const hexInput = input.value.trim();
+
+      // Validasi hex warna
+      const hexRegex = /^#?([a-fA-F0-9]{3}|[a-fA-F0-9]{6})$/;
+      if (!hexRegex.test(hexInput)) {
+        result.textContent = "Format HEX salah. Contoh: #ff0033 atau #f03";
+        preview.style.backgroundColor = "transparent";
+        return;
+      }
+
+      const rgb = hexToRgb(hexInput);
+      if (!rgb) {
+        result.textContent = "Gagal mengkonversi warna.";
+        preview.style.backgroundColor = "transparent";
+        return;
+      }
+      const rgbString = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      result.textContent = `RGB: ${rgbString}`;
+      preview.style.backgroundColor = rgbString;
+    });
+  </script>
+
+</body>
+</html>

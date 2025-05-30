@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Step-by-Step Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+    }
+
+    .form-container {
+      max-width: 400px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-next {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn-prev {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-submit {
+      background: #28a745;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .success {
+      color: green;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .progress {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Form Pendaftaran</h2>
+  <div class="progress" id="progressText">Langkah 1 dari 3</div>
+
+  <div class="step active" id="step1">
+    <input type="text" id="name" placeholder="Nama Lengkap" required />
+    <input type="date" id="birthdate" placeholder="Tanggal Lahir" required />
+    <div class="buttons">
+      <span></span>
+      <button class="btn-next" onclick="nextStep(1)">Lanjut</button>
+    </div>
+  </div>
+
+  <div class="step" id="step2">
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="tel" id="phone" placeholder="Nomor HP" required />
+    <div class="buttons">
+      <button class="btn-prev" onclick="prevStep(1)">Kembali</button>
+      <button class="btn-next" onclick="nextStep(2)">Lanjut</button>
+    </div>
+  </div>
+
+  <div class="step" id="step3">
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <div class="buttons">
+      <button class="btn-prev" onclick="prevStep(2)">Kembali</button>
+    </div>
+    <button class="btn-submit" onclick="submitForm()">Kirim</button>
+  </div>
+
+  <div class="success" id="successMsg"></div>
+</div>
+
+<script>
+  let currentStep = 1;
+
+  function showStep(step) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById('step' + step).classList.add('active');
+    document.getElementById('progressText').textContent = 'Langkah ' + step + ' dari 3';
+  }
+
+  function nextStep(current) {
+    if (validateStep(current)) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  }
+
+  function prevStep(current) {
+    currentStep--;
+    showStep(currentStep);
+  }
+
+  function validateStep(step) {
+    const inputs = document.querySelectorAll('#step' + step + ' input');
+    for (let input of inputs) {
+      if (input.value.trim() === '') {
+        alert('Semua field harus diisi.');
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function submitForm() {
+    if (validateStep(3)) {
+      document.getElementById('successMsg').textContent = "Form berhasil dikirim!";
+    }
+  }
+</script>
+
+</body>
+</html>

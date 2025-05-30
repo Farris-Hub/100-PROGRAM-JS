@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Zoom Toggle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .zoom-img {
+      width: 300px;
+      height: auto;
+      border: 2px solid #333;
+      border-radius: 8px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .zoomed {
+      transform: scale(2);
+      cursor: zoom-out;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Image Zoom Toggle on Click</h2>
+  <img id="image" src="zazu f1.jpeg" alt="Example Image" class="zoom-img" />
+
+  <script>
+    const image = document.getElementById('image');
+
+    image.addEventListener('click', () => {
+      image.classList.toggle('zoomed');
+    });
+  </script>
+
+</body>
+</html>

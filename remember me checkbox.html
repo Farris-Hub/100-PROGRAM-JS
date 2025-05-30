@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login dengan Remember Me</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      padding: 30px;
+    }
+    .container {
+      max-width: 350px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .success {
+      color: green;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Login</h2>
+    <div class="error" id="errorMsg"></div>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <label><input type="checkbox" id="rememberMe" /> Ingat saya</label>
+      <button type="submit">Login</button>
+    </form>
+    <div class="success" id="successMsg"></div>
+  </div>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const rememberCheckbox = document.getElementById("rememberMe");
+    const errorMsg = document.getElementById("errorMsg");
+    const successMsg = document.getElementById("successMsg");
+
+    const validUser = {
+      username: "Farris Verstappen",
+      password: "4wdc"
+    };
+
+    window.onload = function () {
+      const remembered = localStorage.getItem("rememberedUsername");
+      if (remembered) {
+        usernameInput.value = remembered;
+        rememberCheckbox.checked = true;
+      }
+    };
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      errorMsg.textContent = "";
+      successMsg.textContent = "";
+
+      if (username === "" || password === "") {
+        errorMsg.textContent = "Silakan isi semua field.";
+        return;
+      }
+
+      if (username === validUser.username && password === validUser.password) {
+        successMsg.textContent = "Login berhasil!";
+
+        if (rememberCheckbox.checked) {
+          localStorage.setItem("rememberedUsername", username);
+        } else {
+          localStorage.removeItem("rememberedUsername");
+        }
+
+        form.reset();
+      } else {
+        errorMsg.textContent = "Username atau password salah.";
+      }
+    });
+  </script>
+
+</body>
+</html>

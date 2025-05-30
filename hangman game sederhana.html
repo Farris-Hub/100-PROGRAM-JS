@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hangman Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+      background: #f0f0f0;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    #word {
+      font-size: 32px;
+      letter-spacing: 8px;
+      margin: 20px 0;
+    }
+
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+      color: green;
+    }
+
+    #wrongLetters {
+      margin-top: 10px;
+      color: red;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      width: 50px;
+      font-size: 24px;
+      text-align: center;
+      padding: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-left: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Hangman Game</h1>
+
+  <div id="word"></div>
+
+  <div>
+    <input type="text" id="letterInput" maxlength="1" placeholder="A-Z" />
+    <button onclick="guessLetter()">Tebak</button>
+  </div>
+
+  <div id="wrongLetters">Huruf salah: </div>
+  <div id="message"></div>
+
+  <script>
+    const words = ["JAVASCRIPT", "PROGRAM", "KOMPUTER", "PELANGI", "HANGMAN", "LANTAI"];
+    let selectedWord = "";
+    let guessedLetters = [];
+    let wrongLetters = [];
+    const maxWrong = 6;
+
+    const wordEl = document.getElementById("word");
+    const wrongLettersEl = document.getElementById("wrongLetters");
+    const messageEl = document.getElementById("message");
+    const letterInput = document.getElementById("letterInput");
+
+    function initGame() {
+      selectedWord = words[Math.floor(Math.random() * words.length)];
+      guessedLetters = [];
+      wrongLetters = [];
+      messageEl.textContent = "";
+      updateWordDisplay();
+      updateWrongLetters();
+      letterInput.value = "";
+      letterInput.focus();
+    }
+
+    function updateWordDisplay() {
+      let display = "";
+      for (const char of selectedWord) {
+        if (guessedLetters.includes(char)) {
+          display += char + " ";
+        } else {
+          display += "_ ";
+        }
+      }
+      wordEl.textContent = display.trim();
+    }
+
+    function updateWrongLetters() {
+      wrongLettersEl.textContent = "Huruf salah: " + wrongLetters.join(", ");
+    }
+
+    function guessLetter() {
+      const letter = letterInput.value.toUpperCase();
+      letterInput.value = "";
+
+      if (!letter.match(/[A-Z]/) || letter.length !== 1) {
+        alert("Masukkan satu huruf A-Z");
+        return;
+      }
+      if (guessedLetters.includes(letter) || wrongLetters.includes(letter)) {
+        alert("Huruf sudah ditebak");
+        return;
+      }
+
+      if (selectedWord.includes(letter)) {
+        guessedLetters.push(letter);
+        updateWordDisplay();
+        checkWin();
+      } else {
+        wrongLetters.push(letter);
+        updateWrongLetters();
+        checkLose();
+      }
+      letterInput.focus();
+    }
+
+    function checkWin() {
+      const won = selectedWord.split("").every(letter => guessedLetters.includes(letter));
+      if (won) {
+        messageEl.style.color = "green";
+        messageEl.textContent = "🎉 Kamu menang! Kata benar: " + selectedWord;
+      }
+    }
+
+    function checkLose() {
+      if (wrongLetters.length >= maxWrong) {
+        messageEl.style.color = "red";
+        messageEl.textContent = "☠️ Kamu kalah! Kata sebenarnya: " + selectedWord;
+        // disable input
+        letterInput.disabled = true;
+      }
+    }
+
+    initGame();
+  </script>
+
+</body>
+</html>

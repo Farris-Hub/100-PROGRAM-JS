@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quiz Pilihan Ganda Sederhana</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .choice {
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      border-radius: 4px;
+    }
+    button:active {
+      background-color: #1e7e34;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Quiz Pilihan Ganda</h2>
+
+  <div id="quiz-container">
+    <p id="question">Pertanyaan akan muncul di sini</p>
+
+    <div>
+      <label class="choice"><input type="radio" name="answer" value="A" /> <span id="choiceA"></span></label><br />
+      <label class="choice"><input type="radio" name="answer" value="B" /> <span id="choiceB"></span></label><br />
+      <label class="choice"><input type="radio" name="answer" value="C" /> <span id="choiceC"></span></label><br />
+      <label class="choice"><input type="radio" name="answer" value="D" /> <span id="choiceD"></span></label>
+    </div>
+
+    <button id="submitBtn">Submit Jawaban</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const quizData = {
+      question: "Siapakah pembalap Formula 1 terbaik ?",
+      choices: {
+        A: "Max Verstappen",
+        B: "Charles Leclerc",
+        C: "Lewis Hamilton",
+        D: "Fernando Alonso"
+      },
+      correct: "A"
+    };
+
+    // Menampilkan soal dan pilihan
+    document.getElementById('question').textContent = quizData.question;
+    document.getElementById('choiceA').textContent = quizData.choices.A;
+    document.getElementById('choiceB').textContent = quizData.choices.B;
+    document.getElementById('choiceC').textContent = quizData.choices.C;
+    document.getElementById('choiceD').textContent = quizData.choices.D;
+
+    const submitBtn = document.getElementById('submitBtn');
+    const result = document.getElementById('result');
+
+    submitBtn.addEventListener('click', () => {
+      const answers = document.getElementsByName('answer');
+      let selected = null;
+
+      for (const ans of answers) {
+        if (ans.checked) {
+          selected = ans.value;
+          break;
+        }
+      }
+
+      if (!selected) {
+        alert('Silakan pilih jawaban terlebih dahulu!');
+        return;
+      }
+
+      if (selected === quizData.correct) {
+        result.textContent = 'Jawaban kamu benar! 🎉';
+        result.style.color = 'green';
+      } else {
+        result.textContent = `Jawaban salah. Jawaban yang benar adalah "${quizData.choices[quizData.correct]}".`;
+        result.style.color = 'red';
+      }
+    });
+  </script>
+
+</body>
+</html>

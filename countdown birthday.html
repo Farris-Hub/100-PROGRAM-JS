@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hitung Mundur Ulang Tahun</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 360px;
+      margin: 50px auto;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    #countdown {
+      font-size: 28px;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    input[type="date"] {
+      padding: 8px;
+      font-size: 16px;
+    }
+    button {
+      margin-left: 10px;
+      padding: 8px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    button:active {
+      background-color: #0056b3;
+    }
+    #message {
+      margin-top: 15px;
+      font-size: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Hitung Mundur Ulang Tahun</h2>
+
+  <input type="date" id="birthday" />
+  <button id="startBtn">Mulai Hitung Mundur</button>
+
+  <div id="countdown"></div>
+  <div id="message"></div>
+
+  <script>
+    const birthdayInput = document.getElementById('birthday');
+    const startBtn = document.getElementById('startBtn');
+    const countdown = document.getElementById('countdown');
+    const message = document.getElementById('message');
+    let timer;
+
+    startBtn.addEventListener('click', () => {
+      clearInterval(timer);
+      message.textContent = '';
+      countdown.textContent = '';
+
+      let birthdayDate = birthdayInput.value;
+      if (!birthdayDate) {
+        alert('Silakan pilih tanggal ulang tahun!');
+        return;
+      }
+
+      const today = new Date();
+      let birthDate = new Date(birthdayDate);
+      birthDate.setFullYear(today.getFullYear());
+
+      if (birthDate < today) {
+        birthDate.setFullYear(today.getFullYear() + 1);
+      }
+
+      timer = setInterval(() => {
+        const now = new Date();
+        const diff = birthDate - now;
+
+        if (diff <= 0) {
+          clearInterval(timer);
+          countdown.textContent = '';
+          message.textContent = '🎉 Selamat ulang tahun! 🎉';
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        countdown.textContent = 
+          `${days} hari, ${hours} jam, ${minutes} menit, ${seconds} detik`;
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barcode Generator</title>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f7f7f7;
+      padding: 30px;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #barcode {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Barcode Generator</h2>
+  <input type="text" id="barcodeInput" placeholder="Masukkan teks atau angka">
+  <br>
+  <button onclick="generateBarcode()">Buat Barcode</button>
+
+  <svg id="barcode"></svg>
+
+  <script>
+    function generateBarcode() {
+      const value = document.getElementById("barcodeInput").value.trim();
+      if (value === "") {
+        alert("Masukkan teks terlebih dahulu.");
+        return;
+      }
+
+      JsBarcode("#barcode", value, {
+        format: "CODE128",
+        lineColor: "#000",
+        width: 2,
+        height: 80,
+        displayValue: true
+      });
+    }
+  </script>
+
+</body>
+</html>
