@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scroll Animation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f0f4f8;
+      padding: 50px 20px;
+    }
+
+    .section {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 0.6s ease-out;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    p {
+      color: #555;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="section"> 
+    <h2>Animasi Scroll #1</h2>
+    <p>Ini adalah konten pertama yang akan muncul dengan efek saat discroll ke area ini.</p>
+  </div>
+
+  <div class="section"> 
+    <h2>Animasi Scroll #2</h2>
+    <p>Konten kedua muncul dengan animasi yang sama saat masuk viewport.</p>
+  </div>
+
+  <div class="section"> 
+    <h2>Animasi Scroll #3</h2>
+    <p>Scroll lebih jauh untuk melihat animasi konten ketiga muncul.</p>
+  </div>
+
+  <script>
+    function isInViewport(element) {
+      const rect = element.getBoundingClientRect();
+      return (
+        rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+      );
+    }
+
+    function scrollAnimation() {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        if (isInViewport(section)) {
+          section.classList.add('visible');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', scrollAnimation);
+    window.addEventListener('load', scrollAnimation);
+  </script>
+
+</body>
+</html>

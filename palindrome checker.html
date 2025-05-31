@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palindrome Checker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔄 Palindrome Checker</h1>
+    <input type="text" id="inputText" placeholder="Masukkan kata atau kalimat">
+    <button onclick="checkPalindrome()">Cek Palindrome</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkPalindrome() {
+      const input = document.getElementById("inputText").value;
+      const clean = input.toLowerCase().replace(/[^a-z0-9]/g, "");
+      const reversed = clean.split("").reverse().join("");
+
+      if (!input.trim()) {
+        document.getElementById("result").innerText = "Mohon masukkan teks terlebih dahulu.";
+        return;
+      }
+
+      if (clean === reversed) {
+        document.getElementById("result").innerText = `"${input}" adalah Palindrome ✅`;
+      } else {
+        document.getElementById("result").innerText = `"${input}" bukan Palindrome ❌`;
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kalkulator Lingkaran</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      max-width: 90%;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 8px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      background: #f1f9ff;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Kalkulator Lingkaran</h2>
+    <label for="radius">Masukkan jari-jari (r):</label>
+    <input type="number" id="radius" placeholder="Contoh: 7" />
+
+    <button onclick="hitungLingkaran()">Hitung</button>
+
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungLingkaran() {
+      const r = parseFloat(document.getElementById('radius').value);
+      const hasil = document.getElementById('hasil');
+
+      if (isNaN(r) || r <= 0) {
+        hasil.innerHTML = "<strong>Masukkan jari-jari yang valid!</strong>";
+        return;
+      }
+
+      const diameter = 2 * r;
+      const keliling = 2 * Math.PI * r;
+      const luas = Math.PI * r * r;
+
+      hasil.innerHTML = `
+        <strong>Hasil Perhitungan:</strong><br><br>
+        Diameter: ${diameter.toFixed(2)}<br>
+        Keliling: ${keliling.toFixed(2)}<br>
+        Luas: ${luas.toFixed(2)}
+      `;
+    }
+  </script>
+
+</body>
+</html>

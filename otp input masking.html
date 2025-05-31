@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OTP Input Masking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .otp-container {
+      display: flex;
+      gap: 12px;
+    }
+    input.otp-input {
+      width: 50px;
+      height: 50px;
+      font-size: 2rem;
+      text-align: center;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input.otp-input:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px #007bff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="otp-container">
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+    <input type="text" maxlength="1" class="otp-input" inputmode="numeric" />
+  </div>
+
+  <script>
+    const inputs = document.querySelectorAll('.otp-input');
+
+    inputs.forEach((input, i) => {
+      input.addEventListener('input', () => {
+        const value = input.value;
+        if (!/^\d$/.test(value)) {
+          input.value = '';
+          return;
+        }
+        if (value && i < inputs.length - 1) {
+          inputs[i + 1].focus();
+        }
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !input.value && i > 0) {
+          inputs[i - 1].focus();
+        }
+      });
+
+      input.addEventListener('focus', () => {
+        input.select();
+      });
+    });
+  </script>
+
+</body>
+</html>

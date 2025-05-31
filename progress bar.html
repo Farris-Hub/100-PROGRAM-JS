@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Progress Bar Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      width: 350px;
+      max-width: 90vw;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 20px;
+      height: 10px;
+      margin-bottom: 30px;
+      overflow: hidden;
+    }
+    .progress {
+      background: #4caf50;
+      height: 100%;
+      width: 0%;
+      transition: width 0.4s ease;
+      border-radius: 20px;
+    }
+    form > div {
+      display: none;
+      flex-direction: column;
+      gap: 15px;
+    }
+    form > div.active {
+      display: flex;
+    }
+    label {
+      font-weight: 600;
+      color: #555;
+    }
+    input[type="text"], input[type="email"], input[type="number"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, input[type="email"]:focus, input[type="number"]:focus {
+      border-color: #4caf50;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      color: white;
+      background-color: #4caf50;
+      transition: background-color 0.3s;
+    }
+    button:hover:not(:disabled) {
+      background-color: #45a049;
+    }
+    button:disabled {
+      background-color: #a5d6a7;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Progress Bar Form</h2>
+
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+
+    <form id="multiStepForm">
+      <div class="step active">
+        <label for="name">Nama Lengkap</label>
+        <input type="text" id="name" required placeholder="Masukkan nama lengkap" />
+      </div>
+
+      <div class="step">
+        <label for="email">Email</label>
+        <input type="email" id="email" required placeholder="Masukkan email" />
+      </div>
+
+      <div class="step">
+        <label for="age">Usia</label>
+        <input type="number" id="age" required min="1" max="120" placeholder="Masukkan usia" />
+      </div>
+
+      <div class="buttons">
+        <button type="button" id="prevBtn" disabled>Sebelumnya</button>
+        <button type="button" id="nextBtn">Selanjutnya</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('multiStepForm');
+    const steps = form.querySelectorAll('.step');
+    const progress = document.getElementById('progress');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentStep = 0;
+
+    function updateForm() {
+      steps.forEach((step, i) => {
+        step.classList.toggle('active', i === currentStep);
+      });
+
+      progress.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.textContent = currentStep === steps.length - 1 ? 'Submit' : 'Selanjutnya';
+    }
+
+    function validateStep() {
+      const inputs = steps[currentStep].querySelectorAll('input');
+      return Array.from(inputs).every(input => input.checkValidity());
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (!validateStep()) {
+        alert('Mohon isi data dengan benar!');
+        return;
+      }
+
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        updateForm();
+      } else {
+        alert('Form berhasil dikirim! 🎉');
+        form.reset();
+        currentStep = 0;
+        updateForm();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        updateForm();
+      }
+    });
+
+    updateForm();
+  </script>
+
+</body>
+</html>

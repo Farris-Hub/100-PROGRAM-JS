@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wishlist Organizer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f9fc;
+      margin: 0;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 400px;
+      max-width: 95vw;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #222;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    ul {
+      margin-top: 25px;
+      list-style: none;
+      padding: 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    li {
+      background: #f1f3f5;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      color: #444;
+    }
+    li button.delete-btn {
+      background-color: #dc3545;
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+    li button.delete-btn:hover {
+      background-color: #a71d2a;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Wishlist Organizer</h1>
+
+    <form id="wishlistForm">
+      <input type="text" id="itemInput" placeholder="Masukkan item wishlist..." required />
+      <button type="submit">Tambah Wishlist</button>
+    </form>
+
+    <ul id="wishlist"></ul>
+  </div>
+
+  <script>
+    const form = document.getElementById('wishlistForm');
+    const itemInput = document.getElementById('itemInput');
+    const wishlist = document.getElementById('wishlist');
+
+    let items = [];
+
+    function renderWishlist() {
+      wishlist.innerHTML = '';
+      items.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = item;
+
+        const delBtn = document.createElement('button');
+        delBtn.textContent = 'Hapus';
+        delBtn.className = 'delete-btn';
+        delBtn.addEventListener('click', () => {
+          items.splice(index, 1);
+          renderWishlist();
+        });
+
+        li.appendChild(delBtn);
+        wishlist.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const newItem = itemInput.value.trim();
+      if (newItem && !items.includes(newItem)) {
+        items.push(newItem);
+        renderWishlist();
+        itemInput.value = '';
+      } else if (items.includes(newItem)) {
+        alert('Item sudah ada di wishlist.');
+      }
+    });
+
+    renderWishlist();
+  </script>
+
+</body>
+</html>

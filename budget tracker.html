@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Budget Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    h1 {
+      color: #333;
+    }
+    .tracker {
+      background: white;
+      padding: 20px 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      max-width: 90vw;
+    }
+    .balance {
+      font-size: 1.8rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #222;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-top: 10px;
+      font-weight: 600;
+      color: #555;
+    }
+    input, select, button {
+      padding: 8px 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 15px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 25px;
+      max-height: 200px;
+      overflow-y: auto;
+      border-top: 1px solid #eee;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      color: #444;
+    }
+    li.income {
+      color: #28a745;
+    }
+    li.expense {
+      color: #dc3545;
+    }
+    .amount {
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Budget Tracker</h1>
+
+  <div class="tracker">
+    <div class="balance">Saldo: Rp0</div>
+
+    <form id="transactionForm">
+      <label for="type">Jenis:</label>
+      <select id="type" required>
+        <option value="income">Pemasukan</option>
+        <option value="expense">Pengeluaran</option>
+      </select>
+
+      <label for="desc">Deskripsi:</label>
+      <input type="text" id="desc" placeholder="Contoh: Gaji bulan Mei" required />
+
+      <label for="amount">Jumlah (Rp):</label>
+      <input type="number" id="amount" min="1" placeholder="Masukkan nominal" required />
+
+      <button type="submit">Tambah Transaksi</button>
+    </form>
+
+    <ul id="transactionList"></ul>
+  </div>
+
+  <script>
+    const balanceEl = document.querySelector('.balance');
+    const form = document.getElementById('transactionForm');
+    const typeInput = document.getElementById('type');
+    const descInput = document.getElementById('desc');
+    const amountInput = document.getElementById('amount');
+    const transactionList = document.getElementById('transactionList');
+
+    let transactions = [];
+
+    function updateBalance() {
+      const income = transactions
+        .filter(t => t.type === 'income')
+        .reduce((acc, t) => acc + t.amount, 0);
+
+      const expense = transactions
+        .filter(t => t.type === 'expense')
+        .reduce((acc, t) => acc + t.amount, 0);
+
+      const saldo = income - expense;
+      balanceEl.textContent = `Saldo: Rp${saldo.toLocaleString('id-ID')}`;
+      balanceEl.style.color = saldo < 0 ? '#dc3545' : '#222';
+    }
+
+    function renderTransactions() {
+      transactionList.innerHTML = '';
+      transactions.forEach((t, i) => {
+        const li = document.createElement('li');
+        li.className = t.type;
+        li.innerHTML = `
+          <span>${t.desc}</span>
+          <span class="amount">${t.type === 'expense' ? '-' : '+'}Rp${t.amount.toLocaleString('id-ID')}</span>
+        `;
+        transactionList.appendChild(li);
+      });
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const type = typeInput.value;
+      const desc = descInput.value.trim();
+      const amount = Number(amountInput.value);
+
+      if (!desc || amount <= 0) {
+        alert('Mohon isi deskripsi dan jumlah dengan benar.');
+        return;
+      }
+
+      transactions.push({ type, desc, amount });
+      updateBalance();
+      renderTransactions();
+
+      descInput.value = '';
+      amountInput.value = '';
+      typeInput.value = 'income';
+    });
+
+    updateBalance();
+  </script>
+
+</body>
+</html>

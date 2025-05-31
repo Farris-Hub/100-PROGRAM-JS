@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Timezone Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+    }
+    .converter {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+    label {
+      display: block;
+      margin: 15px 0 6px;
+      font-weight: bold;
+      color: #555;
+    }
+    select, input[type="time"], button {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #2979ff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+    #result {
+      margin-top: 25px;
+      font-size: 18px;
+      color: #222;
+      min-height: 30px;
+      text-align: center;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Timezone Converter</h1>
+
+  <div class="converter">
+    <label for="fromTimezone">Dari Zona Waktu:</label>
+    <select id="fromTimezone">
+      <option value="UTC">UTC (Coordinated Universal Time)</option>
+      <option value="Asia/Jakarta">WIB (Asia/Jakarta)</option>
+      <option value="Asia/Tokyo">JST (Asia/Tokyo)</option>
+      <option value="Europe/London">GMT (Europe/London)</option>
+      <option value="America/New_York">EST (America/New_York)</option>
+      <option value="America/Los_Angeles">PST (America/Los_Angeles)</option>
+      <option value="Australia/Sydney">AEST (Australia/Sydney)</option>
+    </select>
+
+    <label for="toTimezone">Ke Zona Waktu:</label>
+    <select id="toTimezone">
+      <option value="UTC">UTC (Coordinated Universal Time)</option>
+      <option value="Asia/Jakarta">WIB (Asia/Jakarta)</option>
+      <option value="Asia/Tokyo">JST (Asia/Tokyo)</option>
+      <option value="Europe/London">GMT (Europe/London)</option>
+      <option value="America/New_York">EST (America/New_York)</option>
+      <option value="America/Los_Angeles">PST (America/Los_Angeles)</option>
+      <option value="Australia/Sydney">AEST (Australia/Sydney)</option>
+    </select>
+
+    <label for="timeInput">Waktu (jam:menit):</label>
+    <input type="time" id="timeInput" value="12:00" />
+
+    <button id="convertBtn">Konversi</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const fromTimezone = document.getElementById('fromTimezone');
+    const toTimezone = document.getElementById('toTimezone');
+    const timeInput = document.getElementById('timeInput');
+    const convertBtn = document.getElementById('convertBtn');
+    const result = document.getElementById('result');
+
+    function convertTime() {
+      const fromZone = fromTimezone.value;
+      const toZone = toTimezone.value;
+      const timeStr = timeInput.value;
+
+      if (!timeStr) {
+        result.textContent = "Mohon masukkan waktu yang valid.";
+        return;
+      }
+
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      const now = new Date();
+
+      try {
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+
+        const isoTime = `${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}T${timeStr}:00`;
+
+        function parseDateInTimezone(isoString, tz) {
+          const formatter = new Intl.DateTimeFormat('en-US', {
+            timeZone: tz,
+            hour12: false,
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit'
+          });
+
+          const parts = formatter.formatToParts(new Date(isoString));
+          let year, month, day, hour, minute, second;
+          for (const part of parts) {
+            if (part.type === 'year') year = part.value;
+            else if (part.type === 'month') month = part.value;
+            else if (part.type === 'day') day = part.value;
+            else if (part.type === 'hour') hour = part.value;
+            else if (part.type === 'minute') minute = part.value;
+            else if (part.type === 'second') second = part.value;
+          }
+
+          return new Date(`${year}-${month}-${day}T${hour}:${minute}:${second}Z`);
+        }
+
+        const dateInFromTZ = parseDateInTimezone(isoTime, fromZone);
+
+        const options = {
+          timeZone: toZone,
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        };
+
+        const formatterTo = new Intl.DateTimeFormat('en-US', options);
+        const convertedTime = formatterTo.format(dateInFromTZ);
+
+        result.textContent = `Waktu di ${toZone}: ${convertedTime}`;
+      } catch (error) {
+        result.textContent = "Terjadi kesalahan saat konversi.";
+        console.error(error);
+      }
+    }
+
+    convertBtn.addEventListener('click', convertTime);
+  </script>
+
+</body>
+</html>

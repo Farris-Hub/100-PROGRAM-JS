@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Stopword Remover</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      min-height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 600px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #222;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+      margin-bottom: 20px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    textarea:focus {
+      border-color: #007bff;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 25px;
+      background: #e9f0ff;
+      padding: 15px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      white-space: pre-wrap;
+      min-height: 60px;
+      color: #222;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Stopword Remover</h1>
+    <textarea id="inputText" placeholder="Masukkan kalimat atau teks di sini..."></textarea>
+    <button id="removeBtn">Hapus Stopwords</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    const stopwords = [
+      "yang", "dan", "di", "ke", "dari", "ini", "itu", "untuk", "pada",
+      "dengan", "adalah", "atau", "saat", "jika", "karena", "oleh", "sebagai",
+      "dalam", "tetapi", "sudah", "belum", "akan", "agar", "dapat", "saya",
+      "kami", "anda", "dia", "mereka", "kamu", "tidak", "ya", "sehingga",
+      "setelah", "sebelum", "walaupun", "meskipun", "karena", "jadi", "oleh karena itu"
+    ];
+
+    const inputText = document.getElementById('inputText');
+    const removeBtn = document.getElementById('removeBtn');
+    const result = document.getElementById('result');
+
+    removeBtn.addEventListener('click', () => {
+      const text = inputText.value.trim();
+
+      if (!text) {
+        alert('Masukkan teks terlebih dahulu!');
+        return;
+      }
+
+      const words = text.toLowerCase().split(/\s+/);
+
+      const filteredWords = words.filter(word => !stopwords.includes(word));
+
+      const cleanedText = filteredWords.join(' ');
+
+      result.textContent = cleanedText || "(Semua kata adalah stopwords)";
+    });
+  </script>
+
+</body>
+</html>

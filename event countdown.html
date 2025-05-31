@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Countdown</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+    }
+    input, button {
+      font-size: 1.1rem;
+      padding: 10px;
+      margin: 10px 5px;
+      border-radius: 6px;
+      border: none;
+    }
+    input[type="datetime-local"] {
+      width: 250px;
+      max-width: 90vw;
+    }
+    button {
+      background-color: #ff6f61;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #e65b50;
+    }
+    #countdown {
+      margin-top: 30px;
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    #message {
+      margin-top: 20px;
+      font-size: 1.5rem;
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Event Countdown</h1>
+  <input type="datetime-local" id="eventTime" />
+  <button id="startBtn">Mulai Hitung Mundur</button>
+
+  <div id="countdown"></div>
+  <div id="message"></div>
+
+  <script>
+    const eventTimeInput = document.getElementById('eventTime');
+    const startBtn = document.getElementById('startBtn');
+    const countdown = document.getElementById('countdown');
+    const message = document.getElementById('message');
+
+    let countdownInterval;
+
+    function updateCountdown(targetDate) {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        countdown.textContent = '';
+        message.textContent = "Waktu sudah tiba! 🎉";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdown.textContent = 
+        `${days} Hari ${hours.toString().padStart(2,'0')} Jam ` + 
+        `${minutes.toString().padStart(2,'0')} Menit ${seconds.toString().padStart(2,'0')} Detik`;
+      message.textContent = '';
+    }
+
+    startBtn.addEventListener('click', () => {
+      if (countdownInterval) clearInterval(countdownInterval);
+
+      const inputVal = eventTimeInput.value;
+      if (!inputVal) {
+        message.textContent = "Mohon pilih tanggal dan waktu event.";
+        countdown.textContent = '';
+        return;
+      }
+
+      const targetDate = new Date(inputVal).getTime();
+
+      if (isNaN(targetDate)) {
+        message.textContent = "Format tanggal/waktu tidak valid.";
+        countdown.textContent = '';
+        return;
+      }
+
+      if (targetDate <= Date.now()) {
+        message.textContent = "Waktu harus di masa depan.";
+        countdown.textContent = '';
+        return;
+      }
+
+      updateCountdown(targetDate);
+      countdownInterval = setInterval(() => updateCountdown(targetDate), 1000);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Number to Words Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 350px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-weight: bold;
+      background-color: #2ecc71;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      background-color: #f9f9f9;
+      padding: 10px;
+      border-radius: 5px;
+      min-height: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🔢 Number to Words</h1>
+    <input type="number" id="numberInput" placeholder="Masukkan angka (max 1 milyar)">
+    <button onclick="convert()">Konversi</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function convert() {
+      const number = parseInt(document.getElementById("numberInput").value);
+      if (isNaN(number) || number < 0 || number > 1000000000) {
+        document.getElementById("result").innerText = "Masukkan angka antara 0 dan 1.000.000.000.";
+      } else {
+        document.getElementById("result").innerText = numberToWords(number).trim();
+      }
+    }
+
+    function numberToWords(n) {
+      const satuan = ["", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan"];
+      
+      function terbilang(n) {
+        if (n < 10) return satuan[n];
+        else if (n === 10) return "sepuluh";
+        else if (n === 11) return "sebelas";
+        else if (n < 20) return satuan[n - 10] + " belas";
+        else if (n < 100) return satuan[Math.floor(n / 10)] + " puluh " + terbilang(n % 10);
+        else if (n < 200) return "seratus " + terbilang(n - 100);
+        else if (n < 1000) return satuan[Math.floor(n / 100)] + " ratus " + terbilang(n % 100);
+        else if (n < 2000) return "seribu " + terbilang(n - 1000);
+        else if (n < 1000000) return terbilang(Math.floor(n / 1000)) + " ribu " + terbilang(n % 1000);
+        else if (n < 1000000000) return terbilang(Math.floor(n / 1000000)) + " juta " + terbilang(n % 1000000);
+        else if (n === 1000000000) return "satu milyar";
+        else return "";
+      }
+
+      return terbilang(n);
+    }
+  </script>
+
+</body>
+</html>

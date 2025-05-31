@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Draggable Elements Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #dragArea {
+      width: 600px;
+      height: 400px;
+      background: #ddd;
+      border: 2px solid #707070;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .draggable {
+      width: 100px;
+      height: 100px;
+      background: #363636;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+      transition: box-shadow 0.2s;
+    }
+
+    .draggable:active {
+      cursor: grabbing;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="dragArea">
+    <div class="draggable" style="top: 20px; left: 20px;">Drag Me 1</div>
+    <div class="draggable" style="top: 20px; left: 140px;">Drag Me 2</div>
+    <div class="draggable" style="top: 140px; left: 80px;">Drag Me 3</div>
+  </div>
+
+  <script>
+    const dragArea = document.getElementById('dragArea');
+    const draggables = document.querySelectorAll('.draggable');
+
+    draggables.forEach(elem => {
+      elem.addEventListener('mousedown', dragStart);
+    });
+
+    let currentDrag = null;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    function dragStart(e) {
+      currentDrag = e.target;
+      offsetX = e.clientX - currentDrag.getBoundingClientRect().left;
+      offsetY = e.clientY - currentDrag.getBoundingClientRect().top;
+
+      document.addEventListener('mousemove', dragMove);
+      document.addEventListener('mouseup', dragEnd);
+
+      e.preventDefault();
+    }
+
+    function dragMove(e) {
+      if (!currentDrag) return;
+
+      let x = e.clientX - offsetX - dragArea.getBoundingClientRect().left;
+      let y = e.clientY - offsetY - dragArea.getBoundingClientRect().top;
+
+      const maxX = dragArea.clientWidth - currentDrag.clientWidth;
+      const maxY = dragArea.clientHeight - currentDrag.clientHeight;
+
+      if (x < 0) x = 0;
+      if (y < 0) y = 0;
+      if (x > maxX) x = maxX;
+      if (y > maxY) y = maxY;
+
+      currentDrag.style.left = x + 'px';
+      currentDrag.style.top = y + 'px';
+    }
+
+    function dragEnd() {
+      currentDrag = null;
+      document.removeEventListener('mousemove', dragMove);
+      document.removeEventListener('mouseup', dragEnd);
+    }
+  </script>
+
+</body>
+</html>

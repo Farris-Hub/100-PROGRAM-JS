@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tip Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f6fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h1>💰 Tip Calculator</h1>
+    
+    <label for="bill">Jumlah Tagihan (Rp):</label>
+    <input type="number" id="bill" placeholder="contoh: 100000">
+    
+    <label for="tip">Persentase Tip:</label>
+    <select id="tip">
+      <option value="0.1">10%</option>
+      <option value="0.15">15%</option>
+      <option value="0.2">20%</option>
+      <option value="0.25">25%</option>
+    </select>
+    
+    <label for="people">Jumlah Orang:</label>
+    <input type="number" id="people" value="1" min="1">
+    
+    <button onclick="calculateTip()">Hitung Tip</button>
+    
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculateTip() {
+      const bill = parseFloat(document.getElementById("bill").value);
+      const tipPercent = parseFloat(document.getElementById("tip").value);
+      const people = parseInt(document.getElementById("people").value);
+
+      if (isNaN(bill) || bill <= 0 || isNaN(people) || people <= 0) {
+        document.getElementById("result").innerText = "Mohon masukkan nilai yang valid.";
+        return;
+      }
+
+      const totalTip = bill * tipPercent;
+      const totalPerPerson = (bill + totalTip) / people;
+
+      document.getElementById("result").innerText = 
+        `Total Tip: Rp ${totalTip.toFixed(2)}\n\nSetiap Orang Bayar: Rp ${totalPerPerson.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>

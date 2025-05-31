@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gradient Background Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ececec;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      transition: background 0.5s;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .controls {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    input[type="color"] {
+      width: 60px;
+      height: 60px;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    #cssCode {
+      background: #222;
+      color: #0f0;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+      user-select: all;
+      box-shadow: 0 0 10px rgba(0,255,0,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Gradient Background Generator</h1>
+  
+  <div class="controls">
+    <input type="color" id="color1" value="#ff7e5f" />
+    <input type="color" id="color2" value="#feb47b" />
+  </div>
+  
+  <div id="cssCode"></div>
+
+  <script>
+    const color1 = document.getElementById('color1');
+    const color2 = document.getElementById('color2');
+    const cssCode = document.getElementById('cssCode');
+
+    function setGradient() {
+      const gradient = `linear-gradient(to right, ${color1.value}, ${color2.value})`;
+      document.body.style.background = gradient;
+      cssCode.textContent = `background: ${gradient};`;
+    }
+
+    color1.addEventListener('input', setGradient);
+    color2.addEventListener('input', setGradient);
+
+    window.onload = setGradient;
+  </script>
+
+</body>
+</html>
