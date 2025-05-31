@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Selisih Jam</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdfdfd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      background-color: #3f3f3f;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #222222;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Selisih Waktu</h2>
+    <label for="start">Jam Mulai:</label>
+    <input type="time" id="start">
+
+    <label for="end">Jam Selesai:</label>
+    <input type="time" id="end">
+
+    <button onclick="hitungSelisih()">Hitung Selisih</button>
+
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungSelisih() {
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+      const hasil = document.getElementById("hasil");
+
+      if (!start || !end) {
+        hasil.textContent = "Mohon isi kedua waktu.";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const [startJam, startMenit] = start.split(":").map(Number);
+      const [endJam, endMenit] = end.split(":").map(Number);
+
+      const awal = new Date();
+      awal.setHours(startJam, startMenit, 0);
+
+      const akhir = new Date();
+      akhir.setHours(endJam, endMenit, 0);
+
+      let selisihMs = akhir - awal;
+      if (selisihMs < 0) {
+        akhir.setDate(akhir.getDate() + 1);
+        selisihMs = akhir - awal;
+      }
+
+      const totalMenit = Math.floor(selisihMs / 60000);
+      const jam = Math.floor(totalMenit / 60);
+      const menit = totalMenit % 60;
+
+      hasil.textContent = `Selisih waktu: ${jam} jam ${menit} menit`;
+      hasil.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>

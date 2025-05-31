@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Harga Tiket Berdasarkan Umur</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #1976d2;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1565c0;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Harga Tiket</h2>
+    <input type="number" id="umur" placeholder="Masukkan umur Anda" min="0" />
+    <button onclick="cekTiket()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekTiket() {
+      const umur = parseInt(document.getElementById("umur").value);
+      const hasil = document.getElementById("hasil");
+      let kategori = "";
+      let harga = 0;
+
+      if (isNaN(umur) || umur < 0) {
+        hasil.textContent = "Masukkan umur yang valid.";
+        hasil.style.color = "red";
+        return;
+      }
+
+      if (umur <= 5) {
+        kategori = "Balita (Gratis)";
+        harga = 0;
+      } else if (umur <= 12) {
+        kategori = "Anak-anak";
+        harga = 10000;
+      } else if (umur <= 17) {
+        kategori = "Remaja";
+        harga = 15000;
+      } else if (umur <= 60) {
+        kategori = "Dewasa";
+        harga = 25000;
+      } else {
+        kategori = "Lansia (Diskon)";
+        harga = 10000;
+      }
+
+      hasil.innerHTML = `Kategori: <strong>${kategori}</strong><br>Harga Tiket: <strong>Rp ${harga.toLocaleString()}</strong>`;
+      hasil.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>

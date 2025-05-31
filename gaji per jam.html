@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Gaji per Jam</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8f5e9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      color: #000000;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #363636;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a1a1a;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #000000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Gaji per Jam</h2>
+    
+    <label for="gaji">Total Gaji (Rp):</label>
+    <input type="number" id="gaji" placeholder="Contoh: 2000000">
+    
+    <label for="jam">Total Jam Kerja:</label>
+    <input type="number" id="jam" placeholder="Contoh: 160">
+    
+    <button onclick="hitungGaji()">Hitung</button>
+    
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungGaji() {
+      const gaji = parseFloat(document.getElementById("gaji").value);
+      const jam = parseFloat(document.getElementById("jam").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(gaji) || isNaN(jam) || gaji <= 0 || jam <= 0) {
+        hasil.textContent = "Masukkan nilai gaji dan jam kerja yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const gajiPerJam = gaji / jam;
+      hasil.textContent = `Gaji per jam: Rp ${gajiPerJam.toFixed(2)}`;
+      hasil.style.color = "#2e7d32";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator Aritmatika</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .calculator {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Kalkulator Aritmatika</h2>
+    <input type="number" id="angka1" placeholder="Masukkan angka pertama">
+    <input type="number" id="angka2" placeholder="Masukkan angka kedua">
+    <select id="operator">
+      <option value="+">Penjumlahan (+)</option>
+      <option value="-">Pengurangan (-)</option>
+      <option value="*">Perkalian (×)</option>
+      <option value="/">Pembagian (/)</option>
+    </select>
+    <button onclick="hitung()">Hitung</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitung() {
+      const angka1 = parseFloat(document.getElementById("angka1").value);
+      const angka2 = parseFloat(document.getElementById("angka2").value);
+      const operator = document.getElementById("operator").value;
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(angka1) || isNaN(angka2)) {
+        hasil.textContent = "Masukkan angka yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      let result;
+      switch (operator) {
+        case '+':
+          result = angka1 + angka2;
+          break;
+        case '-':
+          result = angka1 - angka2;
+          break;
+        case '*':
+          result = angka1 * angka2;
+          break;
+        case '/':
+          result = angka2 !== 0 ? angka1 / angka2 : "Tidak bisa dibagi 0!";
+          break;
+      }
+
+      hasil.textContent = `Hasil: ${result}`;
+      hasil.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>

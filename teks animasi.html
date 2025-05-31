@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animasi Teks</title>
+  <style>
+    body {
+      background: #222;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .animated-text {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #fff;
+      animation: colorMove 4s linear infinite, bounce 2s ease-in-out infinite;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      user-select: none;
+    }
+
+    @keyframes colorMove {
+      0% { color: #ff4c4c; }
+      25% { color: #4cff4c; }
+      50% { color: #4c4cff; }
+      75% { color: #ff4cff; }
+      100% { color: #ff4c4c; }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="animated-text">Teks Animasi</div>
+
+</body>
+</html>

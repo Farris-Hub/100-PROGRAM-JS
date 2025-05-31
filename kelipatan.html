@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cek Kelipatan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff3e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      color: #ef6c00;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #ef6c00;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #d35400;
+    }
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Kelipatan</h2>
+    <label for="angka1">Masukkan angka pertama:</label>
+    <input type="number" id="angka1" placeholder="Misal: 12" />
+    
+    <label for="angka2">Masukkan angka kedua:</label>
+    <input type="number" id="angka2" placeholder="Misal: 3" />
+    
+    <button onclick="cekKelipatan()">Cek</button>
+    
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekKelipatan() {
+      const angka1 = parseInt(document.getElementById('angka1').value);
+      const angka2 = parseInt(document.getElementById('angka2').value);
+      const hasil = document.getElementById('hasil');
+
+      if (isNaN(angka1) || isNaN(angka2)) {
+        hasil.textContent = "Masukkan kedua angka dengan benar!";
+        hasil.style.color = "red";
+        return;
+      }
+      if (angka2 === 0) {
+        hasil.textContent = "Angka kedua tidak boleh nol.";
+        hasil.style.color = "red";
+        return;
+      }
+
+      if (angka1 % angka2 === 0) {
+        hasil.textContent = `${angka1} adalah kelipatan dari ${angka2} ✅`;
+        hasil.style.color = "green";
+      } else {
+        hasil.textContent = `${angka1} bukan kelipatan dari ${angka2} ❌`;
+        hasil.style.color = "darkred";
+      }
+    }
+  </script>
+
+</body>
+</html>

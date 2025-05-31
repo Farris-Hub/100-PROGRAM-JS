@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rumus Tabung</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background-color: #2196f3;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0b7dda;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 17px;
+      color: #333;
+      text-align: left;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hitung Rumus Tabung</h2>
+    <input type="number" id="jariJari" placeholder="Masukkan jari-jari (r)" min="0" step="any" />
+    <input type="number" id="tinggi" placeholder="Masukkan tinggi (t)" min="0" step="any" />
+    <button onclick="hitungTabung()">Hitung</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungTabung() {
+      const r = parseFloat(document.getElementById("jariJari").value);
+      const t = parseFloat(document.getElementById("tinggi").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(r) || r <= 0 || isNaN(t) || t <= 0) {
+        hasil.textContent = "Masukkan nilai jari-jari dan tinggi yang valid (> 0)!";
+        hasil.style.color = "red";
+        return;
+      }
+      const luasPermukaan = 2 * Math.PI * r * (r + t);
+      const volume = Math.PI * r * r * t;
+
+      hasil.style.color = "#333";
+      hasil.textContent =
+        `Hasil Perhitungan:\n` +
+        `- Luas Permukaan = 2 × π × r × (r + t) = ${luasPermukaan.toFixed(2)}\n` +
+        `- Volume = π × r² × t = ${volume.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>

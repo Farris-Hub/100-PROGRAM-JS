@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Status Keanggotaan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4caf50;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #388e3c;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Status Keanggotaan</h2>
+    <input type="number" id="poin" placeholder="Masukkan jumlah poin" />
+    <button onclick="cekStatus()">Cek Status</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekStatus() {
+      const poin = parseInt(document.getElementById("poin").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(poin) || poin < 0) {
+        hasil.textContent = "Masukkan poin yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      let status = "";
+      let warna = "";
+
+      if (poin < 100) {
+        status = "🟤 Member Biasa";
+        warna = "gray";
+      } else if (poin < 500) {
+        status = "🔵 Member Silver";
+        warna = "blue";
+      } else if (poin < 1000) {
+        status = "🟡 Member Gold";
+        warna = "goldenrod";
+      } else {
+        status = "🌟 Member Platinum";
+        warna = "purple";
+      }
+
+      hasil.textContent = `Status: ${status}`;
+      hasil.style.color = warna;
+    }
+  </script>
+
+</body>
+</html>

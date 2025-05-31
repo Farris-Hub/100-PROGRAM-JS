@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Ganjil atau Genap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Ganjil atau Genap</h2>
+    <input type="number" id="numberInput" placeholder="Masukkan angka..." />
+    <button onclick="cekGanjilGenap()">Cek Sekarang</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekGanjilGenap() {
+      const input = document.getElementById('numberInput').value;
+      const hasil = document.getElementById('hasil');
+      const number = parseInt(input);
+
+      if (isNaN(number)) {
+        hasil.textContent = "Masukkan angka yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      if (number % 2 === 0) {
+        hasil.textContent = number + " adalah Bilangan Genap";
+        hasil.style.color = "#007bff";
+      } else {
+        hasil.textContent = number + " adalah Bilangan Ganjil";
+        hasil.style.color = "#e83e8c";
+      }
+    }
+  </script>
+
+</body>
+</html>

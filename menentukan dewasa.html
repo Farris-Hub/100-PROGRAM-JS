@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Penentu Dewasa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f9fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Status Dewasa</h2>
+    <input type="number" id="usia" placeholder="Masukkan usia Anda" />
+    <button onclick="cekDewasa()">Cek</button>
+    <div class="result" id="hasilDewasa"></div>
+  </div>
+
+  <script>
+    function cekDewasa() {
+      const usia = parseInt(document.getElementById("usia").value);
+      const hasil = document.getElementById("hasilDewasa");
+
+      if (isNaN(usia) || usia < 0) {
+        hasil.textContent = "Masukkan usia yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      if (usia >= 18) {
+        hasil.textContent = "Status: DEWASA ✅";
+        hasil.style.color = "green";
+      } else {
+        hasil.textContent = "Status: BELUM DEWASA ❌";
+        hasil.style.color = "orange";
+      }
+    }
+  </script>
+
+</body>
+</html>

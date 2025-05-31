@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Segitiga</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; background: #f2f2f2; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Kalkulator Segitiga</h2>
+    <input type="number" id="alas" placeholder="Alas">
+    <input type="number" id="tinggi" placeholder="Tinggi">
+    <input type="number" id="a" placeholder="Sisi A">
+    <input type="number" id="b" placeholder="Sisi B">
+    <input type="number" id="c" placeholder="Sisi C">
+    <button onclick="hitungSegitiga()">Hitung</button>
+    <div class="result" id="hasilSegitiga"></div>
+  </div>
+
+  <script>
+    function hitungSegitiga() {
+      const alas = parseFloat(document.getElementById("alas").value);
+      const tinggi = parseFloat(document.getElementById("tinggi").value);
+      const a = parseFloat(document.getElementById("a").value);
+      const b = parseFloat(document.getElementById("b").value);
+      const c = parseFloat(document.getElementById("c").value);
+      const luas = 0.5 * alas * tinggi;
+      const keliling = a + b + c;
+      document.getElementById("hasilSegitiga").innerHTML = `
+        Luas = ${luas}<br>Keliling = ${keliling}
+      `;
+    }
+  </script>
+</body>
+</html>

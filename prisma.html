@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rumus Prisma Segitiga</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f9fc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #1e7e34;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #333;
+      text-align: left;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hitung Rumus Prisma Segitiga</h2>
+    <input type="number" id="alas" placeholder="Masukkan alas segitiga (a)" min="0" step="any" />
+    <input type="number" id="tinggiSegitiga" placeholder="Masukkan tinggi segitiga (t)" min="0" step="any" />
+    <input type="number" id="tinggiPrisma" placeholder="Masukkan tinggi prisma (h)" min="0" step="any" />
+    <button onclick="hitungPrisma()">Hitung</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungPrisma() {
+      const a = parseFloat(document.getElementById("alas").value);
+      const tSegitiga = parseFloat(document.getElementById("tinggiSegitiga").value);
+      const hPrisma = parseFloat(document.getElementById("tinggiPrisma").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(a) || a <= 0 || isNaN(tSegitiga) || tSegitiga <= 0 || isNaN(hPrisma) || hPrisma <= 0) {
+        hasil.textContent = "Masukkan nilai yang valid (> 0) untuk alas, tinggi segitiga, dan tinggi prisma!";
+        hasil.style.color = "red";
+        return;
+      }
+      const luasAlas = 0.5 * a * tSegitiga;
+      const sisiMiring = Math.sqrt((a / 2) ** 2 + tSegitiga ** 2);
+      const kelilingAlas = a + 2 * sisiMiring;
+      const luasPermukaan = 2 * luasAlas + kelilingAlas * hPrisma;
+      const volume = luasAlas * hPrisma;
+
+      hasil.style.color = "#333";
+      hasil.textContent =
+        `Hasil Perhitungan:\n` +
+        `- Luas Alas Segitiga = 1/2 × a × t = ${luasAlas.toFixed(2)}\n` +
+        `- Keliling Alas Segitiga ≈ ${kelilingAlas.toFixed(2)}\n` +
+        `- Luas Permukaan Prisma = 2 × luas alas + keliling × tinggi prisma = ${luasPermukaan.toFixed(2)}\n` +
+        `- Volume Prisma = luas alas × tinggi prisma = ${volume.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>

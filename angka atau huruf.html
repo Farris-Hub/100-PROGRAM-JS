@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Angka atau Huruf</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 300px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #1565c0;
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      background-color: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0d47a1;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Angka atau Huruf?</h2>
+    <input type="text" id="inputChar" maxlength="1" placeholder="Masukkan 1 karakter">
+    <button onclick="cekKarakter()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekKarakter() {
+      const input = document.getElementById("inputChar").value;
+      const hasil = document.getElementById("hasil");
+
+      if (input === "") {
+        hasil.textContent = "Silakan masukkan satu karakter!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const kode = input.charCodeAt(0);
+
+      if (kode >= 48 && kode <= 57) {
+        hasil.textContent = "Itu adalah ANGKA.";
+        hasil.style.color = "green";
+      } else if ((kode >= 65 && kode <= 90) || (kode >= 97 && kode <= 122)) {
+        hasil.textContent = "Itu adalah HURUF.";
+        hasil.style.color = "blue";
+      } else {
+        hasil.textContent = "Itu bukan angka atau huruf.";
+        hasil.style.color = "gray";
+      }
+    }
+  </script>
+
+</body>
+</html>

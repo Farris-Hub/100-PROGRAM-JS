@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Persegi Panjang</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; background: #f2f2f2; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 8px; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    .result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Kalkulator Persegi Panjang</h2>
+    <input type="number" id="panjang" placeholder="Panjang">
+    <input type="number" id="lebar" placeholder="Lebar">
+    <button onclick="hitungPersegiPanjang()">Hitung</button>
+    <div class="result" id="hasilPP"></div>
+  </div>
+
+  <script>
+    function hitungPersegiPanjang() {
+      const p = parseFloat(document.getElementById("panjang").value);
+      const l = parseFloat(document.getElementById("lebar").value);
+      const luas = p * l;
+      const keliling = 2 * (p + l);
+      document.getElementById("hasilPP").innerHTML = `
+        Luas = ${luas}<br>Keliling = ${keliling}
+      `;
+    }
+  </script>
+</body>
+</html>

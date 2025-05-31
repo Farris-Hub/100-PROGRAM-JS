@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Vokal atau Konsonan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #cccccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #d3d3d3;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #313131;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 17px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Vokal atau Konsonan</h2>
+    <input type="text" id="huruf" maxlength="1" placeholder="Masukkan satu huruf" />
+    <button onclick="cekHuruf()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekHuruf() {
+      const hurufInput = document.getElementById("huruf").value.toLowerCase();
+      const hasil = document.getElementById("hasil");
+
+      if (!hurufInput.match(/[a-z]/)) {
+        hasil.textContent = "Masukkan satu huruf alfabet (A-Z)!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const vokal = ['a', 'i', 'u', 'e', 'o'];
+
+      if (vokal.includes(hurufInput)) {
+        hasil.textContent = `"${hurufInput.toUpperCase()}" adalah huruf Vokal.`;
+        hasil.style.color = "green";
+      } else {
+        hasil.textContent = `"${hurufInput.toUpperCase()}" adalah huruf Konsonan.`;
+        hasil.style.color = "#333";
+      }
+    }
+  </script>
+
+</body>
+</html>

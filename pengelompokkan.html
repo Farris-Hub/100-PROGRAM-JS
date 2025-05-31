@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pengelompokan Angka</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Pengelompokan Angka</h2>
+    <input type="number" id="angka" placeholder="Masukkan angka" />
+    <button onclick="kelompokkan()">Kelompokkan</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function kelompokkan() {
+      const angka = parseFloat(document.getElementById("angka").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(angka)) {
+        hasil.textContent = "Masukkan angka yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const ganjilGenap = angka % 2 === 0 ? "Genap" : "Ganjil";
+
+      let status;
+      if (angka > 0) {
+        status = "Positif";
+      } else if (angka < 0) {
+        status = "Negatif";
+      } else {
+        status = "Nol";
+      }
+
+      let ukuran;
+      if (angka < 10) {
+        ukuran = "Kecil";
+      } else if (angka <= 100) {
+        ukuran = "Sedang";
+      } else {
+        ukuran = "Besar";
+      }
+
+      hasil.style.color = "#333";
+      hasil.innerHTML = `
+        Hasil Pengelompokan:<br>
+        ➤ ${ganjilGenap}<br>
+        ➤ ${status}<br>
+        ➤ Nilai ${ukuran}
+      `;
+    }
+  </script>
+
+</body>
+</html>

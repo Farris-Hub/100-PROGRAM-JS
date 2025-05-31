@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Perulangan Tanpa Batas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .output {
+      font-size: 20px;
+      margin: 20px 0;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .start-btn {
+      background-color: #28a745;
+      color: white;
+    }
+    .stop-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Perulangan Tanpa Batas</h2>
+    <div class="output" id="output">Tekan "Start" untuk memulai</div>
+    <button class="start-btn" onclick="mulaiPerulangan()">Start</button>
+    <button class="stop-btn" onclick="hentikanPerulangan()">Stop</button>
+  </div>
+
+  <script>
+    let counter = 0;
+    let intervalId;
+
+    function mulaiPerulangan() {
+      if (intervalId) return;
+      intervalId = setInterval(() => {
+        counter++;
+        document.getElementById("output").textContent = `Perulangan ke-${counter}`;
+      }, 1000);
+    }
+
+    function hentikanPerulangan() {
+      clearInterval(intervalId);
+      intervalId = null;
+      document.getElementById("output").textContent = `Perulangan dihentikan pada ke-${counter}`;
+    }
+  </script>
+
+</body>
+</html>

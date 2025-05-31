@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Konversi Suhu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fff3e0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+      background-color: #fb8c00;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #ef6c00;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: 600;
+      font-size: 17px;
+      color: #333;
+      text-align: left;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Konversi Suhu</h2>
+    <input type="number" id="inputSuhu" placeholder="Masukkan suhu" />
+    <select id="satuanAsal">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+    <select id="satuanTujuan">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+    <button onclick="konversiSuhu()">Konversi</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function konversiSuhu() {
+      const suhu = parseFloat(document.getElementById("inputSuhu").value);
+      const asal = document.getElementById("satuanAsal").value;
+      const tujuan = document.getElementById("satuanTujuan").value;
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(suhu)) {
+        hasil.textContent = "Masukkan nilai suhu yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      let suhuC;
+      if (asal === "C") {
+        suhuC = suhu;
+      } else if (asal === "F") {
+        suhuC = (suhu - 32) * 5/9;
+      } else if (asal === "K") {
+        suhuC = suhu - 273.15;
+      }
+
+      let hasilKonversi;
+      if (tujuan === "C") {
+        hasilKonversi = suhuC;
+      } else if (tujuan === "F") {
+        hasilKonversi = suhuC * 9/5 + 32;
+      } else if (tujuan === "K") {
+        hasilKonversi = suhuC + 273.15;
+      }
+
+      hasil.style.color = "#333";
+      hasil.textContent = 
+        `Hasil Konversi Suhu:\n` +
+        `${suhu}°${asal} = ${hasilKonversi.toFixed(2)}°${tujuan}`;
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cek Tahun Kabisat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 300px;
+    }
+
+    h2 {
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #00796b;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Tahun Kabisat</h2>
+    <input type="number" id="tahun" placeholder="Masukkan tahun (misal: 2024)" />
+    <button onclick="cekKabisat()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekKabisat() {
+      const tahun = parseInt(document.getElementById("tahun").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(tahun) || tahun <= 0) {
+        hasil.textContent = "Masukkan tahun yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+      const kabisat = (tahun % 4 === 0 && tahun % 100 !== 0) || (tahun % 400 === 0);
+
+      if (kabisat) {
+        hasil.textContent = `${tahun} adalah Tahun Kabisat ✅`;
+        hasil.style.color = "green";
+      } else {
+        hasil.textContent = `${tahun} bukan Tahun Kabisat ❌`;
+        hasil.style.color = "darkred";
+      }
+    }
+  </script>
+
+</body>
+</html>

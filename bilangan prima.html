@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cek Bilangan Prima</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e3f2fd;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: white;
+      padding: 30px 35px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      color: #1565c0;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      text-align: left;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #1976d2;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0d47a1;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Bilangan Prima</h2>
+    <label for="number">Masukkan angka:</label>
+    <input type="number" id="number" placeholder="Misal: 17" min="1" />
+    <button onclick="cekPrima()">Cek</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function cekPrima() {
+      const num = parseInt(document.getElementById('number').value);
+      const result = document.getElementById('result');
+
+      if (isNaN(num) || num < 1) {
+        result.textContent = "Masukkan angka positif yang valid!";
+        result.style.color = "red";
+        return;
+      }
+
+      if (num === 1) {
+        result.textContent = "1 bukan bilangan prima.";
+        result.style.color = "orange";
+        return;
+      }
+
+      if (num === 2) {
+        result.textContent = "2 adalah bilangan prima.";
+        result.style.color = "green";
+        return;
+      }
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) {
+          result.textContent = `${num} bukan bilangan prima.`;
+          result.style.color = "red";
+          return;
+        }
+      }
+
+      result.textContent = `${num} adalah bilangan prima.`;
+      result.style.color = "green";
+    }
+  </script>
+
+</body>
+</html>

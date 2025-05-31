@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cek Positif, Negatif, atau Nol</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef2f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      width: 320px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Positif, Negatif, atau Nol</h2>
+    <input type="number" id="angka" placeholder="Masukkan angka" />
+    <button onclick="cekPosNeg()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekPosNeg() {
+      const angka = parseFloat(document.getElementById('angka').value);
+      const hasil = document.getElementById('hasil');
+
+      if (isNaN(angka)) {
+        hasil.textContent = 'Masukkan angka yang valid!';
+        hasil.style.color = 'red';
+        return;
+      }
+
+      if (angka > 0) {
+        hasil.textContent = 'Angka Positif ✔️';
+        hasil.style.color = 'green';
+      } else if (angka < 0) {
+        hasil.textContent = 'Angka Negatif ❌';
+        hasil.style.color = 'orange';
+      } else {
+        hasil.textContent = 'Angka Nol ➖';
+        hasil.style.color = 'blue';
+      }
+    }
+  </script>
+
+</body>
+</html>

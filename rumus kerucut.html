@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rumus Kerucut</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 17px;
+      font-weight: 600;
+      color: #333;
+      text-align: left;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Hitung Rumus Kerucut</h2>
+    <input type="number" id="jariJari" placeholder="Masukkan jari-jari (r)" min="0" step="any" />
+    <input type="number" id="tinggi" placeholder="Masukkan tinggi (t)" min="0" step="any" />
+    <button onclick="hitungKerucut()">Hitung</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function hitungKerucut() {
+      const r = parseFloat(document.getElementById("jariJari").value);
+      const t = parseFloat(document.getElementById("tinggi").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(r) || r <= 0 || isNaN(t) || t <= 0) {
+        hasil.textContent = "Masukkan nilai jari-jari dan tinggi yang valid (> 0)!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      const s = Math.sqrt(r * r + t * t);
+      const luasPermukaan = Math.PI * r * (r + s);
+      const volume = (1/3) * Math.PI * r * r * t;
+
+      hasil.style.color = "#333";
+      hasil.textContent =
+        `Hasil Perhitungan:\n` +
+        `- Garis pelukis (s) = √(r² + t²) = ${s.toFixed(2)}\n` +
+        `- Luas Permukaan = π × r × (r + s) = ${luasPermukaan.toFixed(2)}\n` +
+        `- Volume = (1/3) × π × r² × t = ${volume.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>

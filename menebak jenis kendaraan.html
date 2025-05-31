@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tebak Jenis Kendaraan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e2f0ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Jenis Kendaraan Berdasarkan Roda</h2>
+    <input type="number" id="rodaInput" placeholder="Masukkan jumlah roda" />
+    <button onclick="tebakKendaraan()">Tebak</button>
+    <div class="result" id="hasilTebakan"></div>
+  </div>
+
+  <script>
+    function tebakKendaraan() {
+      const roda = parseInt(document.getElementById("rodaInput").value);
+      const hasil = document.getElementById("hasilTebakan");
+
+      if (isNaN(roda) || roda <= 0) {
+        hasil.textContent = "Masukkan jumlah roda yang valid!";
+        hasil.style.color = "red";
+        return;
+      }
+
+      let jenis = "";
+
+      switch (roda) {
+        case 1:
+          jenis = "Sepeda Roda Satu (Unicycle)";
+          break;
+        case 2:
+          jenis = "Sepeda Motor atau Sepeda";
+          break;
+        case 3:
+          jenis = "Becak atau Bajaj";
+          break;
+        case 4:
+          jenis = "Mobil";
+          break;
+        case 6:
+        case 8:
+        case 10:
+          jenis = "Truk";
+          break;
+        case 18:
+          jenis = "Truk Trailer Besar";
+          break;
+        default:
+          jenis = "Jenis kendaraan tidak diketahui";
+      }
+
+      hasil.textContent = `Jenis Kendaraan: ${jenis}`;
+      hasil.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>

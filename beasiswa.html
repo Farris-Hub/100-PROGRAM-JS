@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cek Beasiswa</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #ede7f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #242424;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #242424;
+      color: white;
+      border: none;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1d1d1d;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Cek Kelayakan Beasiswa</h2>
+    <input type="number" id="nilai" placeholder="Masukkan nilai akhir (0-100)" />
+    <input type="number" id="penghasilan" placeholder="Penghasilan orang tua (Rp)" />
+    <button onclick="cekBeasiswa()">Cek</button>
+    <div class="result" id="hasil"></div>
+  </div>
+
+  <script>
+    function cekBeasiswa() {
+      const nilai = parseFloat(document.getElementById("nilai").value);
+      const penghasilan = parseFloat(document.getElementById("penghasilan").value);
+      const hasil = document.getElementById("hasil");
+
+      if (isNaN(nilai) || isNaN(penghasilan) || nilai < 0 || nilai > 100 || penghasilan < 0) {
+        hasil.textContent = "Masukkan data yang valid.";
+        hasil.style.color = "red";
+        return;
+      }
+
+      let layak = false;
+      if (nilai >= 85 && penghasilan <= 3000000) {
+        layak = true;
+      }
+
+      if (layak) {
+        hasil.textContent = "✅ Anda LAYAK mendapatkan beasiswa!";
+        hasil.style.color = "green";
+      } else {
+        hasil.textContent = "❌ Anda BELUM LAYAK mendapatkan beasiswa.";
+        hasil.style.color = "darkred";
+      }
+    }
+  </script>
+
+</body>
+</html>

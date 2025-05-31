@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Konversi Nilai</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Konversi Nilai ke Huruf</h2>
+    <input type="number" id="nilai" placeholder="Masukkan nilai (0-100)" />
+    <button onclick="konversiNilai()">Konversi</button>
+    <div class="result" id="output"></div>
+  </div>
+
+  <script>
+    function konversiNilai() {
+      const nilai = parseFloat(document.getElementById("nilai").value);
+      const output = document.getElementById("output");
+
+      if (isNaN(nilai) || nilai < 0 || nilai > 100) {
+        output.textContent = "Masukkan nilai antara 0 hingga 100!";
+        output.style.color = "red";
+        return;
+      }
+
+      let huruf = "";
+      let keterangan = "";
+
+      if (nilai >= 85) {
+        huruf = "A";
+        keterangan = "Sangat Baik";
+      } else if (nilai >= 75) {
+        huruf = "B";
+        keterangan = "Baik";
+      } else if (nilai >= 65) {
+        huruf = "C";
+        keterangan = "Cukup";
+      } else if (nilai >= 50) {
+        huruf = "D";
+        keterangan = "Kurang";
+      } else {
+        huruf = "E";
+        keterangan = "Sangat Kurang";
+      }
+
+      output.innerHTML = `Nilai Huruf: <strong>${huruf}</strong><br>Keterangan: ${keterangan}`;
+      output.style.color = "#333";
+    }
+  </script>
+
+</body>
+</html>
